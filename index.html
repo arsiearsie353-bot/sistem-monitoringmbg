@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBG Klik Cepat | Distribusi Makan Bergizi Gratis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Navbar -->
+    <header class="bg-emerald-700 text-white shadow sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/15 p-2 rounded-xl">
+                    <i data-lucide="mouse-pointer-click" class="w-6 h-6 text-emerald-200"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-extrabold tracking-tight">MBG KLIK CEPAT</h1>
+                    <p class="text-[11px] text-emerald-100">Mode Instan 1-File • Tanpa Ketik Manual</p>
+                </div>
+            </div>
+            <button onclick="resetData()" class="text-xs bg-emerald-800 hover:bg-emerald-900 px-3 py-1.5 rounded-lg border border-emerald-500/40 flex items-center space-x-1.5 transition">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <span>Reset Hari Ini</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Ringkasan Angka Besar -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <p class="text-xs font-semibold text-slate-400 uppercase">Total Porsi Keluar</p>
+                <p id="total-porsi" class="text-3xl font-extrabold text-emerald-600 mt-1">0</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <p class="text-xs font-semibold text-slate-400 uppercase">Sekolah Terlayani</p>
+                <p id="total-sekolah" class="text-3xl font-extrabold text-slate-800 mt-1">0</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <p class="text-xs font-semibold text-slate-400 uppercase">Rata-rata Kalori</p>
+                <p id="rata-kalori" class="text-3xl font-extrabold text-amber-600 mt-1">0 <span class="text-sm font-medium text-slate-400">kkal</span></p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <p class="text-xs font-semibold text-slate-400 uppercase">Terkirim</p>
+                <p id="total-terkirim" class="text-3xl font-extrabold text-blue-600 mt-1">0</p>
+            </div>
+        </div>
+
+        <!-- Panel Klik Cepat & Antrean -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Panel Klik Cepat (7 Cols) -->
+            <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 space-y-6">
+
+                <!-- 1. Pilih Sekolah -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        1. Klik Sekolah Tujuan
+                    </label>
+                    <div id="daftar-sekolah-btn" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
+                </div>
+
+                <!-- 2. Pilih Menu -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        2. Klik Paket Menu Bergizi
+                    </label>
+                    <div id="daftar-menu-btn" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+                </div>
+
+                <!-- 3. Tombol Tambah Porsi Instan -->
+                <div class="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div>
+                            <span class="text-xs font-bold uppercase text-emerald-800">3. Klik Jumlah Porsi</span>
+                            <p id="info-pilihan" class="text-xs text-emerald-700 mt-0.5">Pilih sekolah & menu di atas</p>
+                        </div>
+                        <span id="badge-kalori-aktif" class="text-xs font-bold bg-white text-amber-700 px-2.5 py-1 rounded-lg border border-amber-200">
+                            0 kkal/porsi
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <button onclick="tambahInstan(25)" class="bg-white hover:bg-emerald-600 hover:text-white text-emerald-700 font-bold py-3 rounded-xl border border-emerald-300 transition active:scale-95">
+                            +25 Porsi
+                        </button>
+                        <button onclick="tambahInstan(50)" class="bg-white hover:bg-emerald-600 hover:text-white text-emerald-700 font-bold py-3 rounded-xl border border-emerald-300 transition active:scale-95">
+                            +50 Porsi
+                        </button>
+                        <button onclick="tambahInstan(100)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-sm transition active:scale-95">
+                            +100 Porsi
+                        </button>
+                        <button onclick="tambahInstan(200)" class="bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-xl shadow-sm transition active:scale-95">
+                            +200 Porsi
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Panel Daftar Distribusi & Aksi 1-Klik (5 Cols) -->
+            <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-800">Antrean & Status Kirim</h2>
+                        <p class="text-xs text-slate-400">Klik tombol status untuk ubah progres</p>
+                    </div>
+                    <span class="text-xs font-semibold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full" id="jumlah-item">0 data</span>
+                </div>
+
+                <div id="list-distribusi" class="space-y-3 overflow-y-auto max-h-[520px] pr-1"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const daftarSekolah = [
+            "SDN 01 Tempursari",
+            "SDN Ditotrunan 01",
+            "SMPN 1 Lumajang",
+            "MI Nurul Islam",
+            "TK Pertiwi Harapan",
+            "SMKN 1 Lumajang"
+        ];
+
+        const daftarMenu = [
+            { nama: "Ayam Teriyaki + Nasi + Sayur + Pisang", kalori: 560 },
+            { nama: "Ikan Tongkol Suwir + Nasi
